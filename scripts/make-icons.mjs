@@ -5,9 +5,15 @@ import { deflateSync } from 'node:zlib';
 
 const BG = [0xff, 0xd6, 0x0a];
 const FG = [0x00, 0x00, 0x00];
-// Same arrow as src/ui/arrow.ts, in a 100×100 box.
-const ARROW = [
-  [50, 4], [94, 50], [68, 50], [68, 96], [32, 96], [32, 50], [6, 50],
+// Three arrows (left, front, right) that meet at one point, in a 100×100 box.
+// The shafts overlap at the centre; a pixel is filled if any shape covers it.
+const SHAPES = [
+  // front
+  [[50, 12], [70, 34], [56, 34], [56, 74], [44, 74], [44, 34], [30, 34]],
+  // left
+  [[8, 68], [28, 48], [28, 62], [50, 62], [50, 74], [28, 74], [28, 88]],
+  // right
+  [[92, 68], [72, 48], [72, 62], [50, 62], [50, 74], [72, 74], [72, 88]],
 ];
 
 function inside(x, y, poly) {
@@ -51,7 +57,7 @@ function png(size, scale) {
         for (let sx = 0; sx < SS; sx++) {
           const u = (((x + (sx + 0.5) / SS) / size) * 100 - 50) / scale + 50;
           const v = (((y + (sy + 0.5) / SS) / size) * 100 - 50) / scale + 50;
-          if (inside(u, v, ARROW)) hits++;
+          if (SHAPES.some((s) => inside(u, v, s))) hits++;
         }
       }
       const a = hits / (SS * SS);
@@ -74,7 +80,7 @@ function png(size, scale) {
 
 const out = new URL('../public/icons/', import.meta.url);
 mkdirSync(out, { recursive: true });
-writeFileSync(new URL('icon-192.png', out), png(192, 0.7));
-writeFileSync(new URL('icon-512.png', out), png(512, 0.7));
-writeFileSync(new URL('maskable-512.png', out), png(512, 0.5));
+writeFileSync(new URL('icon-192.png', out), png(192, 0.85));
+writeFileSync(new URL('icon-512.png', out), png(512, 0.85));
+writeFileSync(new URL('maskable-512.png', out), png(512, 0.62));
 console.log('Icons written to public/icons/');

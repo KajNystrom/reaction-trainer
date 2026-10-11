@@ -35,7 +35,6 @@ export function homeView({ settings: s, warnings, onStart, onSettings }: HomeVie
       h('dd', {}, sound + (s.readyBeep ? ' + ready beep' : '')),
     ),
     h('button', { type: 'button', class: 'btn big primary start', onclick: () => onStart() }, 'Start'),
-    h('button', { type: 'button', class: 'btn', onclick: () => onSettings() }, 'Settings'),
-    h('p', { class: 'hint' }, 'Prop the phone up so the screen faces you — a phone lying flat can’t be read from 4 m.'),
+    h('button', { type: 'button', class: 'btn big', onclick: () => onSettings() }, 'Settings'),
   );
 }

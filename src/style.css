@@ -48,8 +48,8 @@ body {
 }
 
 h1 {
-  margin: 8px 0;
-  font-size: 1.8rem;
+  margin: 0.2em 0;
+  font-size: 1.5em;
 }
 
 /* ---------- Buttons ---------- */
@@ -97,27 +97,30 @@ h1 {
 
 /* ---------- Home ---------- */
 
+/* Sizes below are in em, so each view scales from its own font size. */
+.home-view {
+  font-size: 28px;
+  max-width: none;
+}
+.home-view .btn {
+  flex: 0 0 auto;
+  min-height: 3.2em;
+  font-size: 1.1em;
+}
+.home-view .btn.start {
+  margin-top: auto;
+  min-height: 3em;
+  font-size: 1.6em;
+}
 .summary {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 8px 16px;
   margin: 0;
 }
 .summary dt {
   color: var(--muted);
+  font-size: 0.75em;
 }
 .summary dd {
-  margin: 0;
-}
-.start {
-  flex: 0 0 auto;
-  margin-top: auto;
-  min-height: 120px;
-  font-size: 2.2rem;
-}
-.hint {
-  color: var(--muted);
-  font-size: 0.9rem;
+  margin: 0 0 0.5em;
 }
 .warnings {
   border: 2px solid var(--accent);
@@ -127,72 +130,83 @@ h1 {
 
 /* ---------- Settings ---------- */
 
+.settings-view {
+  font-size: 36px;
+  max-width: none;
+}
 .settings {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 0.6em;
 }
 fieldset {
   border: 2px solid var(--border);
-  border-radius: 12px;
-  padding: 8px 16px 16px;
+  border-radius: 0.35em;
+  padding: 0.2em 0.45em 0.5em;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0.5em;
   min-width: 0;
+  margin: 0;
 }
 legend {
-  padding: 0 6px;
+  padding: 0 0.2em;
   font-weight: 700;
 }
 .field {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  flex-direction: column;
+  gap: 0.15em;
 }
 .with-unit {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 0.3em;
+}
+.with-unit input {
+  flex: 1;
 }
 input[type='number'],
 select {
-  min-height: 48px;
-  width: 7.5rem;
-  padding: 8px;
-  border-radius: 8px;
+  width: 100%;
+  min-height: 1.9em;
+  padding: 0.15em 0.35em;
+  border-radius: 0.25em;
   border: 2px solid var(--border);
   background: var(--surface);
   color: var(--fg);
   font: inherit;
 }
-select {
-  width: 10rem;
-}
 .checks {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
 }
 .check {
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-height: 48px;
+  gap: 0.4em;
+  min-height: 1.8em;
 }
 .check input {
-  width: 28px;
-  height: 28px;
+  flex: 0 0 auto;
+  font: inherit; /* form controls don't inherit font-size, so 1em would be 13px */
+  width: 1em;
+  height: 1em;
+  margin: 0;
   accent-color: var(--accent);
 }
 .errors p {
-  margin: 0 0 6px;
+  margin: 0 0 0.3em;
   color: var(--accent);
+}
+.settings-view .btn {
+  min-height: 2.4em;
+  font-size: 1em;
 }
 .row {
   display: flex;
-  gap: 12px;
+  gap: 0.4em;
 }
 .row .btn {
   flex: 1;
