@@ -57,6 +57,23 @@ export const LIMITS: Record<NumericKey, { min: number; max: number }> = {
   restBetweenSetsMs: { min: 0, max: 1_800_000 },
 };
 
+const LABELS: Record<NumericKey, string> = {
+  sets: 'Sets',
+  repsPerSet: 'Reps per set',
+  maxRepeat: 'Max same direction in a row',
+  startCountdownMs: 'Start countdown',
+  delayMinMs: 'Shortest wait',
+  delayMaxMs: 'Longest wait',
+  delayFixedMs: 'Wait',
+  cueDisplayMs: 'Arrow shown for',
+  restBetweenRepsMs: 'Rest between reps',
+  restBetweenSetsMs: 'Rest between sets',
+};
+
+function formatLimit(key: NumericKey, v: number): string {
+  return key.endsWith('Ms') ? `${v / 1000} s` : String(v);
+}
+
 export function cloneDefaults(): Settings {
   return { ...DEFAULT_SETTINGS, directions: [...DEFAULT_SETTINGS.directions] };
 }
@@ -66,10 +83,12 @@ export function validateSettings(s: Settings): string[] {
   const errors: string[] = [];
   for (const [key, { min, max }] of Object.entries(LIMITS) as [NumericKey, { min: number; max: number }][]) {
     const v = s[key];
-    if (!Number.isFinite(v) || v < min || v > max) errors.push(`${key} must be between ${min} and ${max}`);
+    if (!Number.isFinite(v) || v < min || v > max) {
+      errors.push(`${LABELS[key]} must be between ${formatLimit(key, min)} and ${formatLimit(key, max)}`);
+    }
   }
   for (const key of ['sets', 'repsPerSet', 'maxRepeat'] as const) {
-    if (!Number.isInteger(s[key])) errors.push(`${key} must be a whole number`);
+    if (Number.isFinite(s[key]) && !Number.isInteger(s[key])) errors.push(`${LABELS[key]} must be a whole number`);
   }
   if (s.directions.length === 0) errors.push('Pick at least one direction');
   if (s.delayMode === 'random' && s.delayMinMs > s.delayMaxMs) {

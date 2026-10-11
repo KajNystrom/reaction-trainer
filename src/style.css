@@ -1,0 +1,310 @@
+/*
+ * Contrast (WCAG): white on black 21:1; black arrow on white 21:1;
+ * yellow #ffd60a on black 14.6:1; white on rest green #003b2f 12.9:1;
+ * white on done blue #0a2a66 14.3:1; white on danger #b00020 7.5:1.
+ */
+:root {
+  --bg: #000;
+  --fg: #fff;
+  --muted: #c8c8c8;
+  --accent: #ffd60a;
+  --accent-fg: #000;
+  --surface: #1c1c1c;
+  --border: #5a5a5a;
+  --danger: #b00020;
+  --rest: #003b2f;
+  --done: #0a2a66;
+  --paused: #262626;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 18px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#app {
+  min-height: 100%;
+}
+
+.view {
+  min-height: 100dvh;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+h1 {
+  margin: 8px 0;
+  font-size: 1.8rem;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  min-height: 56px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  color: var(--fg);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.btn.primary {
+  background: var(--accent);
+  color: var(--accent-fg);
+  border-color: var(--accent);
+}
+.btn.danger {
+  background: var(--danger);
+  border-color: var(--danger);
+  color: #fff;
+}
+.btn.subtle {
+  background: transparent;
+}
+.btn.big {
+  min-height: 88px;
+  font-size: 1.6rem;
+  flex: 1;
+}
+.btn[hidden] {
+  display: none;
+}
+
+/* ---------- Home ---------- */
+
+.summary {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 16px;
+  margin: 0;
+}
+.summary dt {
+  color: var(--muted);
+}
+.summary dd {
+  margin: 0;
+}
+.start {
+  flex: 0 0 auto;
+  margin-top: auto;
+  min-height: 120px;
+  font-size: 2.2rem;
+}
+.hint {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.warnings {
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  padding: 4px 16px;
+}
+
+/* ---------- Settings ---------- */
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+fieldset {
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 8px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+legend {
+  padding: 0 6px;
+  font-weight: 700;
+}
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.with-unit {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+input[type='number'],
+select {
+  min-height: 48px;
+  width: 7.5rem;
+  padding: 8px;
+  border-radius: 8px;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  color: var(--fg);
+  font: inherit;
+}
+select {
+  width: 10rem;
+}
+.checks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+}
+.check input {
+  width: 28px;
+  height: 28px;
+  accent-color: var(--accent);
+}
+.errors p {
+  margin: 0 0 6px;
+  color: var(--accent);
+}
+.row {
+  display: flex;
+  gap: 12px;
+}
+.row .btn {
+  flex: 1;
+}
+
+/* ---------- Session ---------- */
+
+.session-view {
+  max-width: none;
+  text-align: center;
+  user-select: none;
+}
+.phase-label {
+  font-size: clamp(2rem, 9vmin, 5rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.phase-center {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+}
+.arrow {
+  width: 78vmin;
+  height: 78vmin;
+  max-height: 60dvh;
+  overflow: visible;
+}
+.big-number,
+.big-text {
+  font-size: clamp(6rem, 45vmin, 22rem);
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.ready-dot {
+  width: 30vmin;
+  height: 30vmin;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 1s ease-in-out infinite alternate;
+}
+.progress {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+.notice {
+  min-height: 1.4em;
+  color: var(--accent);
+}
+.controls {
+  display: flex;
+  gap: 12px;
+}
+
+.session-view[data-phase='getReady'] {
+  color: var(--accent);
+}
+.session-view[data-phase='cue'] {
+  background: #fff;
+  color: #000;
+}
+.session-view[data-phase='cue'] .notice {
+  color: #000;
+}
+.session-view[data-phase='rest'] {
+  background: var(--rest);
+}
+.session-view[data-phase='done'] {
+  background: var(--done);
+}
+.session-view[data-phase='paused'] {
+  background: var(--paused);
+}
+
+/* The session view spans the whole screen, so paint the page behind it too. */
+body:has(.session-view[data-phase='cue']) {
+  background: #fff;
+}
+body:has(.session-view[data-phase='rest']) {
+  background: var(--rest);
+}
+body:has(.session-view[data-phase='done']) {
+  background: var(--done);
+}
+body:has(.session-view[data-phase='paused']) {
+  background: var(--paused);
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.85);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@media (orientation: landscape) {
+  .arrow {
+    max-height: 55dvh;
+  }
+}

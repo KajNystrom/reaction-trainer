@@ -26,7 +26,7 @@ describe('settings', () => {
   it('flags out-of-range numbers, min > max delay and infeasible repeat rules', () => {
     const s = { ...cloneDefaults(), sets: 0, delayMinMs: 5000, delayMaxMs: 1000 };
     const errors = validateSettings(s);
-    expect(errors.some((e) => e.startsWith('sets'))).toBe(true);
+    expect(errors.some((e) => e.startsWith('Sets must be between'))).toBe(true);
     expect(errors.some((e) => e.includes('Minimum delay'))).toBe(true);
 
     expect(validateSettings({ ...cloneDefaults(), directions: ['left'] }).join()).toMatch(/in a row/);
