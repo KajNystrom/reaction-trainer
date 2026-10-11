@@ -2,7 +2,7 @@
 
 Reaction Trainer is a web app for footwork reaction drills. It shows a large arrow and says a direction ("left", "right", "front") at a random time. You sprint to the cone in that direction, touch it and go back to the start mark. The app runs on Android Chrome, installs to the home screen and works offline.
 
-Live app: https://GITHUB_USER.github.io/reaction-trainer/
+Live app: https://kajnystrom.github.io/reaction-trainer/
 
 ## How a session runs
 
@@ -72,7 +72,7 @@ You must have Node.js 24 or later and Git. All commands are for PowerShell.
 ### Get the code
 
 ```powershell
-git clone https://github.com/GITHUB_USER/reaction-trainer.git
+git clone https://github.com/KajNystrom/reaction-trainer.git
 Set-Location reaction-trainer
 npm install
 ```
