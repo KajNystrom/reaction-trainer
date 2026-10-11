@@ -60,10 +60,17 @@ export function sessionView(handlers: SessionViewHandlers) {
     }
 
     const ended = s.phase === 'done' || s.phase === 'idle';
-    progress.textContent = ended
+    const progressText = ended
       ? `${s.totalSets} × ${s.repsPerSet} reps`
-      : `Set ${s.setIndex + 1}/${s.totalSets} · Rep ${s.repIndex + 1}/${s.repsPerSet}` +
-        (s.phase === 'rest' ? ' next' : '');
+      : `Set ${s.setIndex + 1}/${s.totalSets} · Rep ${s.repIndex + 1}/${s.repsPerSet}`;
+    const progressKey = `${s.phase === 'rest'}:${progressText}`;
+    if (progress.dataset.key !== progressKey) {
+      progress.dataset.key = progressKey;
+      progress.replaceChildren(
+        ...(s.phase === 'rest' ? [h('span', { class: 'progress-next' }, 'Next')] : []),
+        progressText,
+      );
+    }
     pauseBtn.textContent = s.paused ? 'Resume' : 'Pause';
     pauseBtn.hidden = ended;
     stopBtn.hidden = ended;

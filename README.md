@@ -165,7 +165,7 @@ The session sends an event when each phase starts. A cue event has the time that
 - **Spoken cues are late.** Android Chrome starts to speak 100 to 500 ms after the arrow appears, and the delay changes. The arrow is the exact signal. If timing is important, use beep tones.
 - **Speech needs a text-to-speech engine.** Some phones have no English voice installed. Then the app uses beep tones and shows a message. To add a voice, go to Android **Settings** > **Accessibility** > **Text-to-speech output**.
 - **The first spoken cue can be slower.** The app loads the voice when you tap Start, but some phones need more time.
-- **Wake lock can fail.** Battery saver mode can block it. If it fails, the app shows "Screen may turn off". Set a long screen timeout in Android settings as a backup.
+- **Wake lock can fail.** Battery saver mode can block it. The app does not show a message when this happens. Set a long screen timeout in Android settings as a backup.
 - **Sound needs a tap first.** Chrome blocks sound until you touch the page. The app turns on sound when you tap Start.
 - **Timers stop in the background.** If you leave the app or the screen turns off, the session pauses. Tap Resume when you come back.
 - **Media volume controls the cues.** The app does not use the ringer volume. If the media volume is low, you will not hear the cues.

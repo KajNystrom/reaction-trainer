@@ -220,8 +220,9 @@ select {
   user-select: none;
 }
 .phase-label {
-  font-size: clamp(2rem, 9vmin, 5rem);
+  font-size: clamp(3rem, 15vmin, 8rem);
   font-weight: 800;
+  line-height: 1.1;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -253,16 +254,30 @@ select {
   animation: pulse 1s ease-in-out infinite alternate;
 }
 .progress {
-  font-size: 1.4rem;
+  font-size: clamp(2rem, 10vmin, 4.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+}
+.progress-next {
+  display: block;
+  font-size: 0.55em;
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 .notice {
   min-height: 1.4em;
+  font-size: 1.3rem;
   color: var(--accent);
 }
 .controls {
   display: flex;
   gap: 12px;
+}
+.session-view .btn.big {
+  flex: 1 1 0;
+  min-height: 128px;
+  font-size: clamp(2.2rem, 11vmin, 4rem);
 }
 
 .session-view[data-phase='getReady'] {
@@ -318,7 +333,43 @@ body:has(.session-view[data-phase='paused']) {
 }
 
 @media (orientation: landscape) {
+  /* Phones in landscape are short: put the buttons in a column on the
+     right so everything fits on one screen. */
+  .session-view {
+    display: grid;
+    grid-template-columns: 1fr minmax(180px, 28vw);
+    grid-template-rows: auto minmax(0, 1fr) auto auto;
+    gap: 4px 16px;
+    height: 100dvh;
+    min-height: 0;
+  }
+  .session-view > :not(.controls) {
+    grid-column: 1;
+  }
+  .session-view .controls {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    flex-direction: column;
+  }
+  .session-view .btn.big {
+    min-height: 0;
+  }
+  .phase-label {
+    font-size: 13vmin;
+  }
+  .progress {
+    font-size: 9vmin;
+  }
+  .phase-center {
+    height: 100%;
+  }
   .arrow {
-    max-height: 55dvh;
+    width: auto;
+    height: 100%;
+    max-height: none;
+  }
+  .big-number,
+  .big-text {
+    font-size: 34vmin;
   }
 }

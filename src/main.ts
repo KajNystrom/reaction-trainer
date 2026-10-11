@@ -6,7 +6,7 @@ import { performanceClock } from './core/clock';
 import { mathRandom } from './core/random';
 import { Session } from './core/session';
 import type { Settings } from './core/settings';
-import { WakeLockManager, type WakeLockStatus } from './platform/wakeLock';
+import { WakeLockManager } from './platform/wakeLock';
 import { registerServiceWorker } from './pwa';
 import { homeView } from './ui/homeView';
 import { sessionView } from './ui/sessionView';
@@ -19,12 +19,8 @@ const notices = new Set<string>();
 let currentView: ReturnType<typeof sessionView> | null = null;
 const showNotices = () => currentView?.setNotice([...notices].join(' · '));
 
-const WAKE_LOCK_NOTICE = 'Screen may turn off — wake lock not available';
-const wakeLock = new WakeLockManager((s: WakeLockStatus) => {
-  if (s === 'failed') notices.add(WAKE_LOCK_NOTICE);
-  if (s === 'on') notices.delete(WAKE_LOCK_NOTICE);
-  showNotices();
-});
+// Wake lock fails silently: there is no warning in the UI by choice.
+const wakeLock = new WakeLockManager();
 
 const SPEECH_NOTICE = 'Spoken cues unavailable — using beeps';
 const audio = new AudioCues(() => {
@@ -35,7 +31,6 @@ const audio = new AudioCues(() => {
 function supportWarnings(s: Settings): string[] {
   const w: string[] = [];
   const support = AudioCues.support();
-  if (!WakeLockManager.isSupported()) w.push('Wake lock is not supported: set a long screen timeout in Android settings.');
   if (!support.beeps) w.push('Web Audio is not supported: no beeps.');
   if (s.audioMode === 'speech' && !support.speech) w.push('Speech is not supported: cues will use beeps.');
   return w;
@@ -106,7 +101,6 @@ function startSession(): void {
       effective.audioMode = 'beeps';
       notices.add(SPEECH_NOTICE);
     }
-    if (!WakeLockManager.isSupported()) notices.add(WAKE_LOCK_NOTICE);
     showNotices();
   });
 
